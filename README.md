@@ -1,43 +1,42 @@
 # Moods and Stresses (Power Apps)
 
-
-As a health care provider, we are concerned with the moods and stress levels of our patients. We want to examine our data to determine who is likely not doing well based on our readings.
+As a health care provider, we are concerned about the moods and stress levels of our patients. We want to use our data to understand how many patients may not be doing well based on their daily check-ins.
 
 ## Data Dictionary
 
-### Users
+### Patients
 
-The [users.csv](users.csv) file contains a list of users with `user_name` and `full_name` fields.
+The [patients.csv](patients.csv) file contains one row per patient.
 
-`user_id`, `user_name`, `full_name`
+| Field | Description |
+| --- | --- |
+| `external_patient_id` | Unique identifier for the patient |
+| `user_name` | Patient's username |
+| `full_name` | Patient's full name |
 
-### Moods
+### Daily Check-ins
 
-In the [moods.csv](moods.csv) file, we have a daily log of each user's mood. The `mood` column evaluates them between 1 (very bad) and 5 (great). If a user's value is missing on a given day, we should default to a 3 (neutral).
+The [daily_checkins.csv](daily_checkins.csv) file contains patients' daily mood and stress readings.
 
-`user_id`, `date`, `mood`
+| Field | Description |
+| --- | --- |
+| `external_checkin_id` | Unique identifier for the check-in |
+| `external_patient_id` | Identifier linking the check-in to a patient in `patients.csv` |
+| `checkin_date` | Date of the check-in |
+| `mood` | Mood rating from 1 (very bad) to 5 (great) |
+| `stress` | Stress rating from 1 (low stress) to 5 (very stressed) |
 
-### Stress
+## Assignment
 
-the [stress.csv](stress.csv) file similarly contains a daily log of the person's stress level. A value of 1 indicates low stress, while a value of 5 indicates very stressed.
+1. Upload or import both provided CSV files into a data source that can be used by Power Apps.
+2. Build a Power Apps app that uses the uploaded data to answer this question:
 
-`user_id`, `date`, `stress`
+   **How many patients had two or more bad days during the week beginning May 7, 2017?**
 
-## Requirements
+   For this assignment:
 
-### Part 1:
-
-Use AI to read in the three data files using the language or framework of your choice.
-
-### Part 2:
-
-Without using AI, write a script or program to show:
-
-- All users who had two or more bad days in the week beginning 2017-05-07, displaying their username and the number of bad days that week. The list should be ordered descending by number of bad days.
-- The 5 longest streaks of consecutive bad days across the entire dataset. It should display the username and their consecutive bad day streak, ordered descending by length of streak.
-
-A "bad day" is defined as a user's mood being in the 1-2 range or where their mood is a 3 and stress level is in the 4-5 range.
-
-### Part 3:
-
-Using AI, build some sort of front-end component to visualize the results of both prompts from Part 2.
+   - A patient has a **bad day** when either:
+     - their mood rating is 1 or 2; or
+     - their mood rating is 3 and their stress rating is 4 or 5.
+   - Each patient should be counted no more than once.
+3. The app must clearly display the resulting number of patients. How you design the rest of the app is up to you.
